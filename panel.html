@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bawn Growers — Customer panel</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Plan from your shelf date, order against your promised quantity, trace every batch.">
+<link rel="icon" href="assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Figtree:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body data-page="panel">
+<script src="assets/js/layout.js"></script>
+<main id="main">
+<div class="panel">
+  <div class="cutoff">
+    <div class="wrap">
+      <b>Today's cutoff 14:00</b>
+      <div class="t" aria-hidden="true"><i id="cutbar"></i></div>
+      <span class="tnum" id="cuttxt"></span>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="phello">
+      <div>
+        <span class="eyebrow">Lough Foods Distribution · Ballymount DC</span>
+        <h1>Good morning, Aoife</h1>
+        <p>Monday 26 October is a bank holiday. Your DC is closed, the farm is picking as normal.</p>
+      </div>
+      <span class="chip"><i></i>Week 45 is 86% promised. Book extra volume early.</span>
+    </div>
+
+    <div class="pgrid">
+      <div class="card c7">
+        <div class="chead">
+          <div><h2>Plan from shelf date</h2><p class="sub">We count back from the day it should be on shelf.</p></div>
+          <label class="sr" for="shelfsel">Shelf date</label>
+          <select class="sel" id="shelfsel"></select>
+        </div>
+        <div class="bsteps" id="psteps"></div>
+        <p class="warnline" id="pwarn" aria-live="polite"></p>
+      </div>
+
+      <div class="card c5">
+        <div class="chead"><div><h2>Deliveries</h2><p class="sub">Deliveries to your docks.</p></div></div>
+        <div class="deliv">
+          <div class="dl">
+            <div class="top"><b>Order 48113</b><span class="tnum">Arrives Tue 04:40</span></div>
+            <div class="seg" role="img" aria-label="Order 48113: picked, packed, now in transit, not yet delivered"><i class="d"></i><i class="d"></i><i class="n"></i><i></i></div>
+            <div class="seglab" aria-hidden="true"><span>Picked</span><span>Packed</span><span>In transit</span><span>Delivered</span></div>
+          </div>
+          <div class="dl">
+            <div class="top"><b>Order 48120</b><span class="tnum">Arrives Wed 05:10</span></div>
+            <div class="seg" role="img" aria-label="Order 48120: picked, now packing, not yet in transit or delivered"><i class="d"></i><i class="n"></i><i></i><i></i></div>
+            <div class="seglab" aria-hidden="true"><span>Picked</span><span>Packing</span><span>In transit</span><span>Delivered</span></div>
+          </div>
+          <div class="dl">
+            <div class="top"><b>Order 48097</b><span class="tnum">Delivered Sat 04:52</span></div>
+            <div class="seg" role="img" aria-label="Order 48097: picked, packed, in transit and delivered"><i class="d"></i><i class="d"></i><i class="d"></i><i class="d"></i></div>
+            <div class="seglab" aria-hidden="true"><span>Picked</span><span>Packed</span><span>In transit</span><span>Delivered</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card c12">
+        <div class="chead">
+          <div><h2>New order for Thursday 29 October</h2><p class="sub">Your promised quantity is what we have set aside for you this week.</p></div>
+          <button class="btn line" id="resetorder" type="button">Reset to usual order</button>
+        </div>
+        <table class="lines tnum">
+          <thead><tr><th>Product</th><th>Pack</th><th>Cases</th><th>Promised this week</th><th>Line total</th></tr></thead>
+          <tbody id="olines"></tbody>
+        </table>
+        <div class="tot">
+          <span class="count" id="ocount"></span>
+          <div class="right"><b class="tnum" id="ototal"></b><button class="btn dark" type="button" id="placeorder">Place order</button></div>
+        </div>
+        <p class="warnline" id="oplaced" aria-live="polite"></p>
+      </div>
+
+      <div class="card c7">
+        <div class="chead"><div><h2>In your DC now</h2><p class="sub">Shelf life left on stock we delivered.</p></div></div>
+        <div class="batches" id="batches"></div>
+      </div>
+      <div class="card c5">
+        <div class="chead"><div><h2>Harvest capacity</h2><p class="sub">Share of the farm's pick already promised.</p></div></div>
+        <div class="cap" id="cap"></div>
+      </div>
+
+      <div class="card c12">
+        <div class="chead"><div><h2>Your delivery profile</h2><p class="sub">Used for every date we calculate.</p></div><button class="btn line" type="button" id="editprofile">Edit profile</button></div>
+        <div class="profile">
+          <div><b>Receiving window</b><ul class="tnum"><li>Mon to Sat, 04:00 to 08:00</li><li>Dock 6, chilled bay</li><li>Booked slot 04:30</li></ul></div>
+          <div><b>Closed days</b><ul class="tnum"><li>Sundays</li><li>Mon 26 Oct, October bank holiday</li><li>Fri 25 and Sat 26 Dec</li><li>Fri 1 Jan</li></ul></div>
+          <div><b>Delivery address</b><p>Lough Foods Distribution<br>Unit 14, Ballymount Cross<br>Dublin 24</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/schedule.js"></script>
+<script src="assets/js/reveal.js"></script>
+<script src="assets/js/modal.js"></script>
+<script src="assets/js/panel.js"></script>
+<script>document.getElementById("editprofile").addEventListener("click",function(e){Bawn.modal.open(e.currentTarget,"you could change your receiving window, closed days and delivery address here, and every date on this page would follow.")})</script>
+<script>BawnLayout.footer()</script>
+</body>
+</html>

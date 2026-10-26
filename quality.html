@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bawn Growers — Quality</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Batch tracing and the standards behind every case.">
+<link rel="icon" href="assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Figtree:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body data-page="quality">
+<script src="assets/js/layout.js"></script>
+<main id="main">
+<div class="wrap phead">
+  <span class="eyebrow">Quality and traceability</span>
+  <h1>Every punnet knows which room it came from.</h1>
+  <p>Each case carries a batch code. Type it in and you see the room, the pick time, the packing line and the cold chain all the way to your dock.</p>
+</div>
+
+<section class="flush-top tight">
+  <div class="wrap trace">
+    <div>
+      <h2>Trace a batch</h2>
+      <form class="lookup" id="traceform" autocomplete="off">
+        <label class="sr" for="batch">Batch code</label>
+        <input id="batch" name="batch" value="BG-2643-07" spellcheck="false">
+        <button class="btn dark" type="submit">Trace</button>
+      </form>
+      <p class="hint">Try BG-2643-07, BG-2643-19 or BG-2644-23.</p>
+    </div>
+    <div class="result" aria-live="polite">
+      <div class="jbar" id="jbar"><i></i><i></i><i></i><i></i></div>
+      <div class="jrows" id="jrows"></div>
+      <div class="temps">
+        <div class="tcap"><span>Product temperature</span><span id="tempmax"></span></div>
+        <svg id="tempsvg" viewBox="0 0 600 132" role="img" aria-label="Product temperature log in degrees Celsius, with the 4 degree limit marked"></svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="stoneband">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Standards</span><h2>Checked by someone other than us</h2></div>
+    <div class="certs">
+      <div class="cert"><b>BRCGS Food Safety, grade AA</b><p>Unannounced audit of the packing hall, hygiene and allergen controls.</p></div>
+      <div class="cert"><b>Bord Bia quality assurance</b><p>Growing, peat sourcing and worker welfare checked every eighteen months.</p></div>
+      <div class="cert"><b>Cold chain logging</b><p>Every pallet is probed at packing and dispatch; logs stay with the batch for two years.</p></div>
+    </div>
+  </div>
+</section>
+
+</main>
+<script src="assets/js/quality.js"></script>
+<script>BawnLayout.footer()</script>
+</body>
+</html>

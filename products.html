@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bawn Growers — Products</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Seven mushrooms, packed three ways. Fixed contract prices by the case.">
+<link rel="icon" href="assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Figtree:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body data-page="products">
+<script src="assets/js/layout.js"></script>
+<main id="main">
+<div class="wrap phead"><span class="eyebrow">The range</span><h1>Seven mushrooms, packed three ways.</h1></div>
+
+<div class="wrap">
+  <div class="detail">
+    <div class="big"><img id="d-img" src="assets/img/product-white.jpg" alt="White mushrooms on a plain light surface" width="800" height="800"></div>
+    <div class="dinfo">
+      <span class="tag" id="d-tag"><i></i><em id="d-group">Classic</em></span>
+      <h2 id="d-name">White mushroom</h2>
+      <p class="lede" id="d-lede"></p>
+      <div class="xp" id="xp">
+        <div class="xtrack" role="slider" tabindex="0" aria-label="Pack size"><div class="xfill"></div></div>
+        <canvas aria-hidden="true"></canvas>
+        <div class="stops" role="group" aria-label="Pack sizes"></div>
+      </div>
+      <div class="figs">
+        <div class="fig"><small>Contract price</small><b class="tnum" id="d-price"></b></div>
+        <div class="fig"><small>Per case</small><b class="tnum" id="d-case"></b></div>
+        <div class="fig"><small>Case price</small><b class="tnum" id="d-cprice"></b></div>
+      </div>
+      <div class="life">
+        <div class="row"><span>Shelf life from packing</span><span class="tnum" id="d-life"></span></div>
+        <div class="t"><i id="d-lifebar"></i></div>
+      </div>
+    </div>
+  </div>
+  <div class="cat-grid" id="cat"></div>
+</div>
+
+<section class="stoneband spaced" id="packaging">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Packaging</span><h2>What arrives at your door</h2><p>Retail punnets go out film-sealed and chilled. Loose crates and boxes are for foodservice and repacking.</p></div>
+    <div class="packs">
+      <div class="pack"><div class="ph"><img src="assets/img/pack-250.jpg" alt="A 250 g clear punnet of white mushrooms" width="800" height="800" loading="lazy"></div><b>250 g punnet</b><span>Retail · 12 per case</span></div>
+      <div class="pack"><div class="ph"><img src="assets/img/pack-400.jpg" alt="A 400 g clear punnet of white mushrooms" width="800" height="800" loading="lazy"></div><b>400 g punnet</b><span>Retail · 8 per case</span></div>
+      <div class="pack"><div class="ph"><img src="assets/img/pack-2500.jpg" alt="A grey 2.5 kg crate of loose white mushrooms" width="800" height="800" loading="lazy"></div><b>2.5 kg crate</b><span>Foodservice · loose</span></div>
+      <div class="pack"><div class="ph"><img src="assets/img/pack-150.jpg" alt="A 150 g tray of shimeji under film" width="800" height="800" loading="lazy"></div><b>150 g tray</b><span>Specialty retail · 10 per case</span></div>
+      <div class="pack"><div class="ph"><img src="assets/img/pack-1000.jpg" alt="A 1 kg cardboard box of king oyster mushrooms" width="800" height="800" loading="lazy"></div><b>1 kg box</b><span>Specialty foodservice</span></div>
+    </div>
+  </div>
+</section>
+
+</main>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/xpbar.js"></script>
+<script src="assets/js/products.js"></script>
+<script>BawnLayout.footer()</script>
+</body>
+</html>
