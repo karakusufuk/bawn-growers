@@ -12,7 +12,7 @@
     {id:'porto', alt:'A large portobello mushroom with its cap lifted to show the dark gills',    name:'Portobello',     group:'classic',   img:'assets/img/product-portobello.jpg',  life:6,  lede:'Chestnut left to open fully. Broad flat caps with dark gills, sold in twos and fours.', packs:[['250 g',1.55,12],['400 g',2.40,8],['2.5 kg',12.60,1]]},
     {id:'king', alt:'King oyster mushrooms lying in a cardboard box',     name:'King oyster',    group:'specialty', img:'assets/img/product-king-oyster.jpg', life:10, lede:'Thick white stems, small caps. Slices like scallops and keeps for ten days.',        packs:[['150 g',2.20,10],['1 kg',13.50,1]]},
     {id:'shimeji', alt:'A clear tray of shimeji mushrooms under film',  name:'Shimeji',        group:'specialty', img:'assets/img/product-shimeji.jpg',     life:12, lede:'Clusters of slender stems with small brown caps, sold joined at the base.',          packs:[['150 g',1.90,10],['1 kg',11.80,1]]},
-    {id:'maitake', alt:'A specialty growing room lit by blue LED light',  name:'Maitake',        group:'specialty', img:'assets/img/product-maitake.jpg',     life:7,  lede:'Layered grey-brown fronds that crisp at the edges in a hot pan.',                    packs:[['150 g',2.60,10],['1 kg',16.20,1]]}
+    {id:'maitake', alt:'A maitake mushroom cluster in a kraft tray under film, on a plain light surface',  name:'Maitake',        group:'specialty', img:'assets/img/product-maitake.jpg',     life:7,  lede:'Layered grey-brown fronds that crisp at the edges in a hot pan.',                    packs:[['150 g',2.60,10],['1 kg',16.20,1]]}
   ];
 
   function product(id){ return PRODUCTS.filter(function(p){return p.id===id})[0]; }
