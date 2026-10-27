@@ -1,6 +1,7 @@
 /* B2B customer panel (demo, no real login): cutoff bar, plan from shelf date, order table, DC stock, capacity. */
 (function(){
   var S = Bawn.schedule, NOW = Bawn.NOW, el = function(id){ return document.getElementById(id); };
+  var MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
   var WEEKDAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 
   /* ---------- 1. cutoff bar: today 06:00 → 14:00, time left to the earliest shelf day still open ---------- */
@@ -20,7 +21,8 @@
   sel.innerHTML = pdays.map(function(d, i){ var ok = S.plan(d, NOW).ok; return '<option value="'+i+'"'+(ok ? '' : ' disabled')+'>'+S.dayName(d)+(ok ? '' : ' · too late')+'</option>'; }).join('');
   sel.value = String(pdays.findIndex(function(d){ return d.getUTCDay() === 4 && S.plan(d, NOW).ok; }));   // first open Thursday
   function renderPlan(){
-    var pl = S.plan(pdays[+sel.value], NOW), st = S.steps(pl), box = el('psteps');
+    var pl = S.plan(pdays[+sel.value], NOW), st = S.steps(pl), box = el('psteps'), pd = pdays[+sel.value];
+    el('ordtitle').textContent = 'New order for '+WEEKDAYS[pd.getUTCDay()]+' '+pd.getUTCDate()+' '+MONTHS[pd.getUTCMonth()];
     box.innerHTML = st.map(function(s){
       var hol = s.label === 'At your DC' && pl.skipped.length;
       return '<div class="bstep'+(hol ? ' hol' : '')+'"><b>'+s.label+'</b><div class="t"><i></i></div><span class="tnum">'+S.fmt(s.at)+'</span></div>';
@@ -30,6 +32,56 @@
   }
   sel.addEventListener('change', renderPlan);
   renderPlan();
+
+  /* the shelf date picker is our own combobox; the native select stays hidden underneath and keeps the value */
+  (function(){
+    var wrap = document.createElement('div'); wrap.className = 'combo';
+    var btn = document.createElement('button'); btn.type = 'button'; btn.className = 'combo-btn'; btn.id = 'shelfbtn';
+    btn.setAttribute('aria-haspopup', 'listbox'); btn.setAttribute('aria-expanded', 'false'); btn.setAttribute('aria-controls', 'shelflist'); btn.setAttribute('aria-label', 'Shelf date');
+    var list = document.createElement('ul'); list.className = 'combo-list'; list.id = 'shelflist'; list.setAttribute('role', 'listbox'); list.setAttribute('aria-labelledby', 'shelfbtn'); list.tabIndex = -1; list.hidden = true;
+    sel.parentNode.insertBefore(wrap, sel); wrap.appendChild(btn); wrap.appendChild(list); wrap.appendChild(sel);
+    sel.classList.add('combo-native'); sel.tabIndex = -1; sel.setAttribute('aria-hidden', 'true');
+    var active = -1;
+    function label(){ var o = sel.options[sel.selectedIndex]; btn.innerHTML = '<span>'+(o ? Bawn.esc(o.textContent) : '')+'</span><i aria-hidden="true"></i>'; }
+    function build(){
+      list.innerHTML = [].map.call(sel.options, function(o, i){
+        return '<li role="option" id="shelfopt'+i+'" data-i="'+i+'" aria-selected="'+(i === sel.selectedIndex)+'"'+(o.disabled ? ' aria-disabled="true"' : '')+'>'+Bawn.esc(o.textContent)+'</li>';
+      }).join('');
+    }
+    function mark(i){
+      active = i;
+      [].forEach.call(list.children, function(li, k){ li.classList.toggle('act', k === i); });
+      if (i < 0) { btn.removeAttribute('aria-activedescendant'); return; }
+      btn.setAttribute('aria-activedescendant', 'shelfopt'+i);
+      var li = list.children[i], top = li.offsetTop - 6, bot = li.offsetTop + li.offsetHeight + 6;
+      if (top < list.scrollTop) list.scrollTop = top; else if (bot > list.scrollTop + list.clientHeight) list.scrollTop = bot - list.clientHeight;
+    }
+    function open(v){
+      if (v === !list.hidden) return;
+      list.hidden = !v; btn.setAttribute('aria-expanded', String(v)); wrap.classList.toggle('open', v);
+      if (v) { build(); mark(sel.selectedIndex); } else mark(-1);
+    }
+    function pick(i){ if (sel.options[i].disabled) return; var changed = sel.selectedIndex !== i; sel.selectedIndex = i; label(); open(false); if (changed) sel.dispatchEvent(new Event('change')); }
+    function step(from, d){ for (var k = from + d; k >= 0 && k < sel.options.length; k += d) if (!sel.options[k].disabled) return k; return from; }
+    btn.addEventListener('click', function(){ btn.focus(); open(list.hidden); });   // Safari doesn't focus buttons on click
+    list.addEventListener('mousedown', function(e){ e.preventDefault(); });   // keep focus on the button
+    list.addEventListener('click', function(e){ var li = e.target.closest('li'); if (li) pick(+li.getAttribute('data-i')); });
+    list.addEventListener('mousemove', function(e){ var li = e.target.closest('li'); if (li && li.getAttribute('aria-disabled') !== 'true') mark(+li.getAttribute('data-i')); });
+    document.addEventListener('mousedown', function(e){ if (!wrap.contains(e.target)) open(false); });
+    wrap.addEventListener('focusout', function(e){ if (e.relatedTarget && !wrap.contains(e.relatedTarget)) open(false); });
+    btn.addEventListener('keydown', function(e){
+      var k = e.key;
+      if (list.hidden) { if (k === 'ArrowDown' || k === 'ArrowUp') { e.preventDefault(); open(true); } return; }   // Enter / Space fall through to the button's click
+      if (k === 'Escape') { e.preventDefault(); open(false); }
+      else if (k === 'ArrowDown') { e.preventDefault(); mark(step(active, 1)); }
+      else if (k === 'ArrowUp') { e.preventDefault(); mark(step(active, -1)); }
+      else if (k === 'Home') { e.preventDefault(); mark(step(-1, 1)); }
+      else if (k === 'End') { e.preventDefault(); mark(step(sel.options.length, -1)); }
+      else if (k === 'Enter' || k === ' ') { e.preventDefault(); if (active > -1) pick(active); else open(false); }
+      else if (k === 'Tab') open(false);
+    });
+    label();
+  })();
 
   /* ---------- 5. order table ---------- */
   // p: product, k: pack index, q: usual cases, pr: promised cases this week, u: cases already ordered this week

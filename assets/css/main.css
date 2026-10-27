@@ -314,6 +314,21 @@ footer.site .demo{margin-top:20px;display:flex;justify-content:space-between;gap
 .c7{grid-column:span 7}.c5{grid-column:span 5}.c12{grid-column:span 12}
 .chead{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:28px}
 .sel{border:0;border-radius:999px;padding:11px 16px;font:500 15px/1 var(--body);background:var(--stone);color:var(--ink)}
+.combo{position:relative;flex:none}
+.combo-native{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.combo-btn{all:unset;box-sizing:border-box;display:inline-flex;align-items:center;justify-content:space-between;gap:14px;border-radius:999px;padding:0 18px;height:44px;font:500 15px/1 var(--body);background:var(--stone);color:var(--ink);cursor:pointer;white-space:nowrap;-webkit-tap-highlight-color:transparent;transition:background .15s}
+.combo-btn:hover,.combo.open .combo-btn{background:var(--stone-2)}
+.combo-btn:focus:not(:focus-visible){outline:none}
+.combo-btn:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
+.combo-btn i{flex:none;width:7px;height:7px;margin-top:-3px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg);transition:transform .2s}
+.combo.open .combo-btn i{margin-top:3px;transform:rotate(-135deg)}
+/* list radius = card radius (--r); option radius = --r minus the 6px padding, so the curves run parallel */
+.combo-list{position:absolute;right:0;top:calc(100% + 8px);z-index:20;box-sizing:border-box;margin:0;padding:6px;list-style:none;background:var(--paper);border-radius:var(--r);box-shadow:0 18px 40px rgba(15,31,61,.16),0 0 0 1px var(--line);min-width:100%;width:max-content;max-height:calc(6 * 42px + 12px);overflow-y:auto;overscroll-behavior:contain}
+.combo-list[hidden]{display:none}
+.combo-list li{box-sizing:border-box;display:flex;align-items:center;min-height:42px;padding:0 14px;border-radius:calc(var(--r) - 6px);font:inherit;font-size:15px;line-height:1.2;color:var(--ink);cursor:pointer;white-space:nowrap}
+.combo-list li.act{background:var(--stone)}
+.combo-list li[aria-selected="true"]{background:var(--navy);color:#fff}
+.combo-list li[aria-disabled="true"]{color:var(--ink-2);opacity:.45;cursor:default;background:none}
 .bsteps{display:flex;flex-direction:column;gap:18px}
 .bstep{display:grid;grid-template-columns:170px 1fr 150px;gap:18px;align-items:center}
 .bstep b{font:600 16px/1.2 var(--display)}
@@ -385,4 +400,30 @@ table.lines input{width:84px;border:0;border-radius:10px;padding:9px 10px;backgr
   nav.main a{padding:10px 10px}
   .packs{grid-template-columns:repeat(3,1fr)}
   .cat-grid{grid-template-columns:repeat(4,1fr)}
+}
+
+/* ---------- phones: the customer panel stacks into one column ---------- */
+@media (max-width:760px){
+  nav.main{display:none}
+  header.site .b2b{margin-left:auto}
+  .cutoff .wrap{grid-template-columns:1fr;gap:8px;height:auto;padding-block:12px}
+  .phello{padding-block:32px 22px}
+  .pgrid{grid-template-columns:minmax(0,1fr);gap:16px}
+  .c7,.c5,.c12{grid-column:1 / -1}
+  .card{padding:22px}
+  .chead{flex-wrap:wrap}
+  .combo-list{left:0;right:auto;max-width:calc(100vw - 2 * 24px)}
+  .combo-list li{min-height:44px}
+  .combo-list{max-height:calc(6 * 44px + 12px)}
+  .bstep{grid-template-columns:96px minmax(0,1fr);gap:6px 14px}
+  .bstep span{grid-column:2;text-align:left;font-size:13px}
+  .bt{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px 14px}
+  .profile{grid-template-columns:minmax(0,1fr);gap:20px}
+  .cap{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .card.c12:has(table.lines){overflow-x:auto}
+  table.lines{min-width:560px}
+  footer.site{padding-block:56px 36px}
+  footer.site .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:32px 24px}
+  footer.site .grid>:first-child{grid-column:1 / -1}
+  footer.site .base,footer.site .demo{flex-direction:column;gap:6px}
 }
